@@ -32,14 +32,30 @@ import (
 	"github.com/gorilla/websocket"
 )
 
-const (
-	wsReadBuffer       = 1024
-	wsWriteBuffer      = 1024
-	wsPingInterval     = 60 * time.Second
-	wsPingWriteTimeout = 5 * time.Second
-	wsPongTimeout      = 30 * time.Second
-	wsMessageSizeLimit = 15 * 1024 * 1024
+var (
+	wsReadBuffer             = 1024
+	wsWriteBuffer            = 1024
+	wsPingInterval           = 60 * time.Second
+	wsPingWriteTimeout       = 5 * time.Second
+	wsPongTimeout            = 30 * time.Second
+	wsMessageSizeLimit int64 = 15 * 1024 * 1024
 )
+
+func SetWsPingInterval(s time.Duration) {
+	wsPingInterval = s
+}
+
+func SetWsPingWriteTimeout(s time.Duration) {
+	wsPingWriteTimeout = s
+}
+
+func SetWsPongTimeout(s time.Duration) {
+	wsPongTimeout = s
+}
+
+func SetWsMessageSizeLimit(limit int64) {
+	wsMessageSizeLimit = limit
+}
 
 var wsBufferPool = new(sync.Pool)
 
